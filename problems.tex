@@ -1,0 +1,668 @@
+\documentclass[a4paper, 12pt]{exam}
+
+% Exam class is broken without this.
+\makeatletter
+\expandafter\providecommand\expandafter*\csname ver@framed.sty\endcsname
+{2003/07/21 v0.8a Simulated by exam}
+\makeatother
+
+% Enables the use of colour.
+\usepackage{xcolor}
+% Syntax high-lighting for code. Requires Python's pygments.
+\usepackage{minted}
+% Enables the use of umlauts and other accents.
+\usepackage[utf8]{inputenc}
+% Diagrams.
+\usepackage{tikz}
+% Settings for captions, such as sideways captions.
+\usepackage{caption}
+% Symbols for units, like degrees and ohms.
+\usepackage{gensymb}
+% Latin modern fonts - better looking than the defaults.
+\usepackage{lmodern}
+% Allows for columns spanning multiple rows in tables.
+\usepackage{multirow}
+% Better looking tables, including nicer borders.
+\usepackage{booktabs}
+% More math symbols.
+\usepackage{amssymb}
+% More math layouts, equation arrays, etc.
+\usepackage{amsmath}
+% More math fonts, like mathbb.
+\usepackage{amsfonts}
+% More theorem environments.
+\usepackage{amsthm}
+% More column formats for tables.
+\usepackage{array}
+% Adjust the sizes of box environments.
+\usepackage{adjustbox}
+% Better looking single quotes in verbatim and minted environments.
+\usepackage{upquote}
+% URLs.
+\usepackage[hidelinks]{hyperref}
+% Better blank space decisions.
+\usepackage{xspace}
+% Better looking tikz trees.
+\usepackage{forest}
+% For plotting.
+\usepackage{pgfplots}
+
+% Various tikz libraries.
+\usetikzlibrary{mindmap}
+\usetikzlibrary{shadows}
+\usetikzlibrary{arrows}
+\usetikzlibrary{positioning}
+\usetikzlibrary{chains}
+\usetikzlibrary{fit}
+\usetikzlibrary{shapes}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows.meta}
+
+% GMIT colours.
+\definecolor{gmitblue}{RGB}{20,134,225}
+\definecolor{gmitred}{RGB}{220,20,60}
+\definecolor{gmitgrey}{RGB}{67,67,67}
+
+% Rename Bibliography to a smaller "Refereces".
+\renewcommand{\refname}{\selectfont\normalsize References} 
+
+% Stop minted high-lighting errors.
+\makeatletter
+\expandafter\def\csname PYGdefault@tok@err\endcsname{\def\PYGdefault@bc##1{{\strut ##1}}}
+\makeatother
+
+% Set the header and footer.
+\pagestyle{headandfoot}
+\header{\textbf{Problem Sheet: Turing machines}}{}{Theory of Algorithms}
+\footer{}{Page \thepage\ of \numpages}{}
+
+% Change some things to do with marks.
+\marksnotpoints
+\pointsinrightmargin
+
+% Empty cover page.
+\begin{coverpages}
+\end{coverpages}
+
+% Print answers
+\printanswers
+
+\begin{document}
+
+\noindent
+The main reference for these problems is Sipser~\cite{sipserbook}.
+
+\begin{questions}
+
+
+\question
+  The following problem comes from Douglas Hofstadter's book \emph{Gödel, Escher, Bach}~\cite{hofstadter79}.
+  Take the time to try to solve this problem yourself.
+  The problem concerns strings of characters.
+  The only characters allowed/available are M, U and I.
+
+  You start with the string MI and the goal is to use the four rules below to convert it into the string MU.
+  In the rules, the letter x denotes any string.
+  You can use the rules any number of times and in any order, just so long as you get to MU~\cite{muwikipedia}.
+
+  \begin{center}
+  \begin{tabular}{rlll}
+
+  & Rule & Example & Explanation  \\
+  \midrule
+  1 &	xI to xIU & MI	to	MIU & Append U to the end of a string ending in I. \\
+  2 &	Mx to Mxx & MIU	to	MIUIU & Double the string after the M. \\
+  3 &	xIIIy to xUy & MUIIIU	to	MUUU & Replace any III with a U. \\
+  4 &	xUUy to xy & MUUU	to	MU & Remove any UU. \\
+  \bottomrule
+  \end{tabular}
+  \end{center}
+
+\question
+  Explain of the following terms in the context of complexity theory.
+  \begin{parts}
+    \part set
+    \part tuple
+    \part language
+    \part decision problem
+    \part indicator function
+    \part map
+    \part function
+    \part one-to-one map
+    \part onto map 
+    \part bijection
+    \part invertible map
+    \part one-way function
+  \end{parts}
+  \begin{solution}
+    \begin{parts}
+      \part Ans 1
+    \end{parts} 
+  \end{solution}
+
+
+\question
+  Clearly define the following sets.
+    \begin{parts}
+      \part PRIMES
+      \part SAT
+      \part 3SAT
+      \part SUBSETSUM
+      \part HAMILTONIANPATH
+    \end{parts}
+  \begin{solution}
+    \begin{parts}
+      \part PRIMES is the set of all prime numbers, a subset of the natural numbers.
+    \end{parts}
+  \end{solution}
+
+
+\question
+  Describe two different algorithms the check if a number is a prime.
+  The algorithms should accept a single positive integer as input, and output true if the number is prime and false otherwise.
+
+  \begin{solution}
+    \begin{minted}{java}
+public static boolean is_prime_brute(int n) {
+  for (int i = 2; i < n; i++)
+    if (n % i == 0)
+      return false;
+  return true;
+}
+
+public static boolean is_prime_sqrt(int n) {
+  for (int i = 2; i < Math.sqrt(n); i++)
+    if (n % i == 0)
+      return false;
+  return true;
+}
+    \end{minted}
+  \end{solution}
+
+
+\question
+  Determine which of the following are in PRIMES (without Google).
+  \begin{parts}
+    \part 2
+    \part 3
+    \part 4
+    \part 10
+    \part 11
+    \part 13,109
+    \part 100,827
+    \part 102,203
+  \end{parts}
+  \begin{solution}
+    \begin{parts}
+      \part Yes
+      \part Yes
+      \part No
+      \part No
+      \part Yes
+      \part Yes
+      \part No
+      \part Yes
+    \end{parts}
+  \end{solution}
+
+
+\question
+  Explain what a decision problem is, and how decision problems relate to Turing machines.
+  \begin{solution}
+    A decision problem is a problem where the answer takes on one of two values, typically true or false.
+    For convenience, we usually represent true by 1 and false by 0.
+    We also usually encode instances of the problem in binary.
+    In that case, a decision problem $f$ has the following form.
+      \[ f:\{0,1\}^n \rightarrow \{0,1\} \]
+    
+    Decision problems are studied extensively in the context of Turing machines.
+    For a given input, a given Turing machine can end up in three different scenarios.
+    It can end in the accept state, it can end in the fail state, or it can end up in an infinite loop.
+    Turing machines that never end in an infinite loop are said to decide the language they accept.
+    In this context, accept represents an outcome of 1, and fail represents an outcome of 0 in the notation above.
+  \end{solution}
+
+
+\question
+  Explain the decision problem related to PRIMES.
+  \begin{solution}
+    PRIMES is the set of all prime numbers.
+      $$ \textrm{PRIMES} = \{ i \mid i \in \mathbb{N} , i \textrm{ is prime} \} $$
+    The decision problem related to primes is the function $f$ where:
+      $$ f(i):\mathbb{N} \rightarrow \{0,1\}: \left\{
+            \begin{array}{ll}
+              1 & \textrm{if } i \textrm{ is prime} \\
+              0 & \textrm{otherwise}
+            \end{array}
+        \right. $$
+    So, the decision problem takes as input any natural number.
+    It outputs 1 if that number is a prime and 0 otherwise.
+  \end{solution}
+
+
+\question
+  Explain the concept of complexity in terms of Turing machines.
+  \begin{solution}
+    A Turing machine essentially consists of a (linear) tape divided into cells, and a state table.
+    Each cell contains a single symbol.
+    At any given point in time the machine is in a single state, and is reading the symbol in a single cell.
+    The state table gives the rules as to what to do for the current symbol being read and the current state the machine is in.
+    The state table will indicate a symbol to overwrite the symbol in the current cell, the neighbouring cell to which the machine should move next, and the next state the machine should enter.
+
+    Let $n$ be the number of cells on the tape that do not initially (before the machine runs) contain the blank symbol.
+    Call this the size of input.
+    Now consider the language that the Turing machine accepts, and call it $L$.
+    This is the set of all possible inputs to the Turing machine in which it ends in the accept state.
+    
+    For each element of $L$, consider the number of times we have to look up the state table before the initial input is accepted.
+    Pick the worst of these, and call that the \emph{worst case}.
+    In general, $L$ is an infinite set, so we must express the worst case in terms of $n$.
+    Let $f(n)$ be the function of $n$ expressing the number of look-ups in the worst case.
+    The complexity of the Turing machine is $O(f(n))$.
+  \end{solution}
+
+\question
+  Explain why if we can solve decision problem $A$ in polynomial time, and we can convert decision problem $B$ to problem $A$ in polynomial time, then we can solve problem $B$ in polynomial time too.
+  \begin{solution}
+    Let $f(m)$ be the number of steps it takes in the worst case to solve an input of length $m$ for $A$.
+    Let $g(n)$ be the number of steps it takes in the worst case to convert an instance of $B$ to $A$.
+    Then in the worst case, an algorithm that converts $B$ to $A$ and then solves $A$ takes at most $f(m)+g(n)$ steps to complete.
+    So, the algorithm is $O(f(m)+g(n))$.
+
+    Now, we know that $f$ and $g$ are polynomials, because we were told they are in the question.
+    However, $f$ is a polynomial in $m$ and $g$ in $n$.
+    Can we express $n$ in terms of a polynomial in $m$?
+    We must be able to, because a Turing machine that works in polynomial time will always halt with a tape output that is of length a polynomial in the length of the input. 
+  \end{solution}
+
+\question
+  Explain what the P computational complexity class is, and give an example of a problem known to be in P.
+  \begin{solution}
+    An algorithm is said to be solvable in \emph{polynomial time} if the number of steps required to complete the algorithm for a given input is $O(n^k)$ for some nonnegative integer $k$, where $n$ is the size of the algorithm's input.
+
+    In 2002, Manindra Agrawal, Neeraj Kayal, and Nitin Saxena proved, in a paper called \emph{PRIMES is in P}, that the problem of determining whether a given natural number was a prime or not is in P.
+    Their algorithm is often referred to as the AKS primality test.
+  \end{solution}
+
+
+\question
+  Explain what the NP computational complexity class is, and give an example of a problem known to be in NP.
+
+\question
+  Explain what the NP-hard computational complexity class is, and give an example of a problem known to be in NP-hard.
+
+\question
+  Explain what the NP-complete computational complexity class is, and give an example of a problem known to be in NP-complete.
+
+
+\question
+  Explain how and where passwords are stored on a typical Linux system, and outline the authentication mechanism used for logins.
+
+\question
+  Explain what the inputs and outputs of the SHA256 algorithm look like.
+
+
+\question
+  Determinethe following expressions are in SAT and 3SAT.
+  \begin{parts}
+    \part $a \vee b$
+    \part $a \wedge b$
+    \part $((a \wedge b) \vee ( \neg b \wedge c)) \vee  \neg d$
+    \part $(a  \wedge   b) \vee (c  \wedge  d)$
+    \part $(a \vee b)  \wedge  (c \vee d)$
+  \end{parts}
+  \begin{solution}
+  \begin{parts}
+    \part $(a,b) = (1,1)$
+    \part $(a,b) = (1,1)$
+    \part $(a,b,c,d) = (1,1,1,0)$
+    \part $(a,b,c,d) = (1,1,1,0)$
+    \part $(a,b,c,d) = (1,1,1,0)$
+  \end{parts}
+  \end{solution}
+
+
+  \question
+  Prove that 3-SAT is NP-complete. You may assume that SAT is NP-complete.
+  \begin{solution}
+    The set 3-SAT is a subset of SAT, and SAT is in NP.
+    Thus, 3-SAT is in NP.
+
+    We can convert an instance of SAT to an instance of 3-SAT in the following way.
+    First convert the formula to CNF.
+    Then convert any one-literal clause $a$ of the SAT formula to the following 3-SAT formula:
+      $$(a \lor u_1 \lor u_2) \land (a \lor u_1 \lor \neg u_2) \land (a \lor \neg u_1 \lor u_2) \land (a \lor \neg u_1 \lor \neg u_2).$$
+    Convert any two-variable clause $a \lor b$ to:
+      $$(a \lor b \lor u_1) \land (a \lor b \lor \neg u_1)).$$
+    Any three-variable clause can be left as-is.
+    Convert any clause with more than three variables $a \lor b \lor c \lor \ldots$ to:
+      $$(a \lor b \lor u_1) \land (c \lor \neg u_1 \lor u_2)) \land \ldots \land (i \lor \neg u_{n-4} \lor u_{n-3}) \land (j \lor k \lor \neg u_{n-3}).$$
+    Now the formula is in 3-CNF.
+    This reduction is polynomial in time, because the output is at most three times as long as the input.
+  \end{solution}
+
+
+  \question
+  Consider the following Turing Machine.
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{ccccc}
+      \toprule
+          State & Input & Write & Move & Next \\
+      \midrule
+          $q_0$ & $\sqcup$ & $\sqcup$ & L & $q_a$ \\
+          $q_0$ & 0 & 0 & R & $q_0$ \\
+          $q_0$ & 1 & 1 & R & $q_1$ \\
+      \midrule
+          $q_1$ & $\sqcup$ & $\sqcup$ & L & $q_f$ \\
+          $q_1$ & 0 & 0 & R & $q_1$ \\
+          $q_1$ & 1 & 1 & R & $q_0$ \\
+      \bottomrule
+      \hline
+    \end{tabular}
+  \end{table}
+  Determine what happens when the Turing Machine is run with the following inputs initially on the tape.
+  \begin{parts}
+    \part 0001
+    \part 0111
+    \part 0110
+    \part 0101010001
+    \part 00000000000000111
+    \part 00
+    \part 
+  \end{parts}
+  \begin{solution}
+  \begin{parts}
+    \part Fail
+    \part Fail
+    \part Accept
+    \part Accept
+    \part Fail
+    \part Accept
+    \part Accept
+  \end{parts}
+  \end{solution}
+
+
+\question
+  Give the state table for a Turing Machine that appends a parity bit to a tape with a string of consecutive 0's and 1's.
+  \begin{solution}
+    \begin{table}[H]
+      \centering
+      \begin{tabular}{ccccc}
+        \toprule
+            State & Input & Write & Move & Next \\
+        \midrule
+            $q_0$ & $\sqcup$ & 0 & L & $q_a$ \\
+            $q_0$ & 0 & 0 & R & $q_0$ \\
+            $q_0$ & 1 & 1 & R & $q_1$ \\
+        \midrule
+            $q_1$ & $\sqcup$ & 1 & L & $q_f$ \\
+            $q_1$ & 0 & 0 & R & $q_1$ \\
+            $q_1$ & 1 & 1 & R & $q_0$ \\
+        \bottomrule
+        \hline
+      \end{tabular}
+    \end{table}
+  \end{solution}
+
+
+\question
+  Construct a Turing Machine to compute the sequence $0 \sqcup 1 \sqcup 0 \sqcup 1 \sqcup 0 \sqcup \ldots$, that is, 0 blank 1 blank 0 blank, etc~\cite{turing37}.
+  \begin{solution}
+    \begin{table}[H]
+      \centering
+      \begin{tabular}{ccccc}
+        \toprule
+            State & Input & Write & Move & Next \\
+        \midrule
+            $q_0$ & $\sqcup$ & 0 & R & $q_1$ \\
+            $q_0$ & 0 & 0 & R & $q_f$ \\
+            $q_0$ & 1 & 1 & R & $q_f$ \\
+        \midrule
+            $q_1$ & $\sqcup$ & $\sqcup$ & R & $q_2$ \\
+            $q_1$ & 0 & 0 & R & $q_f$ \\
+            $q_1$ & 1 & 1 & R & $q_f$ \\
+        \midrule
+            $q_2$ & $\sqcup$ & 1 & R & $q_3$ \\
+            $q_2$ & 0 & 0 & R & $q_f$ \\
+            $q_2$ & 1 & 1 & R & $q_f$ \\
+        \midrule
+            $q_3$ & $\sqcup$ & $\sqcup$ & R & $q_0$ \\
+            $q_3$ & 0 & 0 & R & $q_f$ \\
+            $q_3$ & 1 & 1 & R & $q_f$ \\
+        \bottomrule
+        \hline
+      \end{tabular}
+    \end{table}
+  \end{solution}
+ 
+
+\question
+  Give the state table for a Turing Machine that multiplies a string of consecutive 0's and 1's by 2.
+  The machine should treat the initial contents of the tape as a natural number written in binary form, with the least significant bit at the end.
+  That is, if the contents of the tape are $01101$, then the right-most 1 represents the number 1, the middle 1 represents the number 4 and the left-most 1 represents the number 8.
+  Then the number on the tape is $8+4+1=13$.
+  \begin{solution}
+    \begin{table}[H]
+      \centering
+      \begin{tabular}{ccccc}
+        \toprule
+            State & Input & Write & Move & Next \\
+        \midrule
+            $q_0$ & $\sqcup$ & 0 & R & $q_a$ \\
+            $q_0$ & 0 & 0 & R & $q_0$ \\
+            $q_0$ & 1 & 1 & R & $q_0$ \\
+        \bottomrule
+        \hline
+      \end{tabular}
+    \end{table}
+  \end{solution}
+
+
+\question
+  Give the state table for a Turing Machine that multiplies a string of consecutive 0's and 1's by 2.
+  The machine should treat the initial contents of the tape as a natural number written in binary form, with the most significant bit at the end.
+  That is, if the contents of the tape are $01101$, then the right-most 1 represents the number 16, the middle 1 represents the number 4 and the left-most 1 represents the number 2.
+  Then the number of the tape is $2+4+16=22$.
+  \begin{solution}
+    \begin{table}[H]
+      \centering
+      \begin{tabular}{ccccc}
+        \toprule
+            State & Input & Write & Move & Next \\
+        \midrule
+            $q_0$ & $\sqcup$ & $\sqcup$ & L & $q_1$ \\
+            $q_0$ & 0 & 0 & R & $q_0$ \\
+            $q_0$ & 1 & 1 & R & $q_0$ \\
+        \midrule
+            $q_1$ & $\sqcup$ & $\sqcup$ & R & $q_4$ \\
+            $q_1$ & 0 & $\sqcup$ & R & $q_2$ \\
+            $q_1$ & 1 & $\sqcup$ & R & $q_3$ \\
+        \midrule
+            $q_2$ & $\sqcup$ & 0 & L & $q_0$ \\
+            $q_2$ & 0 & 0 & R & $q_f$ \\
+            $q_2$ & 1 & 1 & R & $q_f$ \\
+        \midrule
+            $q_3$ & $\sqcup$ & 1 & L & $q_0$ \\
+            $q_3$ & 0 & 0 & R & $q_f$ \\
+            $q_3$ & 1 & 1 & R & $q_f$ \\
+        \midrule
+            $q_4$ & $\sqcup$ & 0 & R & $q_a$ \\
+            $q_4$ & 0 & 0 & R & $q_f$ \\
+            $q_4$ & 1 & 1 & R & $q_f$ \\
+        \bottomrule
+        \hline
+      \end{tabular}
+    \end{table}
+  \end{solution}
+
+
+\question
+  Give the state table for a Turing Machine that adds 1 to a string of consecutive 0's and 1's, where the least significant digit is on the right of the input.
+  \begin{solution}
+    \begin{table}[H]
+      \centering
+      \begin{tabular}{ccccc}
+        \toprule
+            State & Input & Write & Move & Next \\
+        \midrule
+            $q_0$ & $\sqcup$ & $\sqcup$ & L & $q_1$ \\
+            $q_0$ & 0        & 0        & R & $q_0$ \\
+            $q_0$ & 1        & 1        & R & $q_0$ \\
+        \midrule
+            $q_1$ & $\sqcup$ & 1        & L & $q_a$ \\
+            $q_1$ & 0        & 1        & L & $q_a$ \\
+            $q_1$ & 1        & 0        & L & $q_1$ \\
+        \bottomrule
+        \hline
+      \end{tabular}
+    \end{table}
+  \end{solution}
+
+
+\question
+  Give the state table for a Turing Machine that subtracts 1 to a string of consecutive 0's and 1's, where the least significant digit is on the right of the input.
+  \begin{solution}
+    \begin{table}[H]
+      \centering
+      \begin{tabular}{ccccc}
+        \toprule
+            State & Input & Write & Move & Next \\
+        \midrule
+            $q_0$ & $\sqcup$ & $\sqcup$ & L & $q_1$ \\
+            $q_0$ & 0        & 0        & R & $q_0$ \\
+            $q_0$ & 1        & 1        & R & $q_0$ \\
+        \midrule
+            $q_1$ & $\sqcup$ & $\sqcup$ & L & $q_a$ \\
+            $q_1$ & 0        & 1        & L & $q_1$ \\
+            $q_1$ & 1        & 0        & L & $q_a$ \\
+        \bottomrule
+        \hline
+      \end{tabular}
+    \end{table}
+  \end{solution}
+
+
+\question
+  List all words of length at most three in $\Sigma^*$ where $\Sigma$ is:
+  \begin{parts}
+    \part $\{ 0, 1 \}$
+    \part $\{ a, b, c \}$
+    \part $\{ \}$
+  \end{parts}
+  \begin{solution}
+    \begin{parts}
+      \part $\{ \epsilon, 0, 1, 00, 01, 10, 11, 000, 001, 010, 011, 100, 101, 110, 111 \}$
+      \part $\{ \epsilon, a, b, c, aa, ab, ac, ba, bb, bc, ca, cb, cc, abc, acb, bac, bca, cab, cba \}$
+      \part $\{ \epsilon \}$
+    \end{parts}
+  \end{solution}
+
+\question
+  Design a Turing machine to recognise the language $\{ 0^n 1^n \mid n \geq 0 \}$.
+  \begin{solution}
+    \begin{table}[H]
+      \centering
+      \begin{tabular}{ccccc}
+        \toprule
+            State & Input & Write & Move & Next \\
+        \midrule
+            $q_0$ & $\sqcup$ & $\sqcup$ & R & $q_a$ \\
+            $q_0$ & 0        & $\sqcup$ & R & $q_1$ \\
+            $q_0$ & 1        & 1        & R & $q_f$ \\
+        \midrule
+            $q_1$ & $\sqcup$ & $\sqcup$ & L & $q_2$ \\
+            $q_1$ & 0        & 0        & R & $q_1$ \\
+            $q_1$ & 1        & 1        & R & $q_1$ \\
+        \midrule
+            $q_2$ & $\sqcup$ & $\sqcup$ & L & $q_f$ \\
+            $q_2$ & 0        & 0        & R & $q_f$ \\
+            $q_2$ & 1        & $\sqcup$ & L & $q_3$ \\
+        \midrule
+            $q_3$ & $\sqcup$ & $\sqcup$ & R & $q_0$ \\
+            $q_3$ & 0        & 0        & L & $q_3$ \\
+            $q_3$ & 1        & 1        & L & $q_3$ \\
+        \bottomrule
+        \hline
+      \end{tabular}
+    \end{table}
+  \end{solution}
+
+
+\question
+  Design a Turing machine to recognise the language $\{ ww^R \mid w \in \{ 0,1 \}^* \}$ where $w^R$ is $w$ reversed.
+  For example, when $w = 101011$ then $w^R = 110101$.
+  \begin{solution}
+    \begin{table}[H]
+      \centering
+      \begin{tabular}{ccccc}
+        \toprule
+            State & Input & Write & Move & Next \\
+        \midrule
+            $q_0$ & $\sqcup$ & $\sqcup$ & R & $q_a$ \\
+            $q_0$ & 0        & $\sqcup$ & R & $q_1$ \\
+            $q_0$ & 1        & $\sqcup$ & R & $q_3$ \\
+        \midrule
+            $q_1$ & $\sqcup$ & $\sqcup$ & L & $q_2$ \\
+            $q_1$ & 0        & 0        & R & $q_1$ \\
+            $q_1$ & 1        & 1        & R & $q_1$ \\
+        \midrule
+            $q_2$ & $\sqcup$ & $\sqcup$ & L & $q_f$ \\
+            $q_2$ & 0        & $\sqcup$ & L & $q_5$ \\
+            $q_2$ & 1        & 1        & L & $q_f$ \\
+        \midrule
+            $q_3$ & $\sqcup$ & $\sqcup$ & L & $q_4$ \\
+            $q_3$ & 0        & 0        & R & $q_3$ \\
+            $q_3$ & 1        & 1        & R & $q_3$ \\
+        \midrule
+            $q_4$ & $\sqcup$ & $\sqcup$ & L & $q_f$ \\
+            $q_4$ & 0        & 0        & L & $q_f$ \\
+            $q_4$ & 1        & $\sqcup$ & L & $q_5$ \\
+        \midrule
+            $q_5$ & $\sqcup$ & $\sqcup$ & R & $q_0$ \\
+            $q_5$ & 0        & 0        & L & $q_5$ \\
+            $q_5$ & 1        & 1        & L & $q_5$ \\
+        \bottomrule
+        \hline
+      \end{tabular}
+    \end{table}
+  \end{solution}
+
+
+\question
+  Design a Turing machine to recognise the language $\{ a^ib^jc^k \mid i,j,k \in \mathbb{N}_0 \}$
+  \begin{solution}
+    \begin{table}[H]
+      \centering
+      \begin{tabular}{ccccc}
+        \toprule
+            State & Input & Write & Move & Next \\
+        \midrule
+            $q_0$ & $\sqcup$ & $\sqcup$ & R & $q_a$ \\
+            $q_0$ & $a$      & $a$      & R & $q_0$ \\
+            $q_0$ & $b$      & $b$      & R & $q_1$ \\
+            $q_0$ & $c$      & $c$      & R & $q_2$ \\
+        \midrule
+            $q_0$ & $\sqcup$ & $\sqcup$ & R & $q_a$ \\
+            $q_0$ & $a$      & $a$      & R & $q_f$ \\
+            $q_0$ & $b$      & $b$      & R & $q_1$ \\
+            $q_0$ & $c$      & $c$      & R & $q_2$ \\
+        \midrule
+            $q_0$ & $\sqcup$ & $\sqcup$ & R & $q_a$ \\
+            $q_0$ & $a$      & $a$      & R & $q_f$ \\
+            $q_0$ & $b$      & $b$      & R & $q_f$ \\
+            $q_0$ & $c$      & $c$      & R & $q_2$ \\
+        \bottomrule
+        \hline
+      \end{tabular}
+    \end{table}
+  \end{solution}
+
+
+\end{questions} 
+
+\bibliographystyle{plain}
+\bibliography{bibliography}
+\end{document}
