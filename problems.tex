@@ -1,11 +1,5 @@
 \documentclass[a4paper, 12pt]{exam}
 
-% Exam class is broken without this.
-\makeatletter
-\expandafter\providecommand\expandafter*\csname ver@framed.sty\endcsname
-{2003/07/21 v0.8a Simulated by exam}
-\makeatother
-
 % Enables the use of colour.
 \usepackage{xcolor}
 % Syntax high-lighting for code. Requires Python's pygments.
@@ -120,7 +114,6 @@ However, the first problem comes from Douglas Hofstadter's book \emph{Gödel, Es
   \end{center}
 
 
-
 \question
   Explain of the following terms in the context of complexity theory.
   \begin{parts}
@@ -182,6 +175,7 @@ public static boolean is_prime_sqrt(int n) {
     \end{minted}
   \end{solution}
 
+
 \newpage
 
 
@@ -217,7 +211,7 @@ public static boolean is_prime_sqrt(int n) {
     A decision problem is a problem where the answer takes on one of two values, typically true or false.
     For convenience, we usually represent true by 1 and false by 0.
     We also usually encode instances of the problem in binary.
-    In that case, a decision problem $f$ has the following form.
+    In that case, a decision problem \( f \) has the following form.
       \[ f:\{0,1\}^n \rightarrow \{0,1\} \]
     
     Decision problems are studied extensively in the context of Turing machines.
@@ -232,8 +226,8 @@ public static boolean is_prime_sqrt(int n) {
   Explain the decision problem related to PRIMES.
   \begin{solution}
     PRIMES is the set of all prime numbers.
-      $$ \textrm{PRIMES} = \{ i \mid i \in \mathbb{N} , i \textrm{ is prime} \} $$
-    The decision problem related to primes is the function $f$ where:
+      \[  \textrm{PRIMES} = \{ i \mid i \in \mathbb{N} , i \textrm{ is prime} \}  \]
+    The decision problem related to primes is the function \( f \) where:
       $$ f(i):\mathbb{N} \rightarrow \{0,1\}: \left\{
             \begin{array}{ll}
               1 & \textrm{if } i \textrm{ is prime} \\
@@ -245,24 +239,25 @@ public static boolean is_prime_sqrt(int n) {
   \end{solution}
 
 
-  \question
+\question
   Determinethe following expressions are in SAT and 3SAT.
   \begin{parts}
-    \part $a \vee b$
-    \part $a \wedge b$
-    \part $((a \wedge b) \vee ( \neg b \wedge c)) \vee  \neg d$
-    \part $(a  \wedge   b) \vee (c  \wedge  d)$
-    \part $(a \vee b)  \wedge  (c \vee d)$
+    \part \( a \vee b \)
+    \part \( a \wedge b \)
+    \part \( ((a \wedge b) \vee ( \neg b \wedge c)) \vee  \neg d \)
+    \part \( (a  \wedge   b) \vee (c  \wedge  d) \)
+    \part \( (a \vee b)  \wedge  (c \vee d) \)
   \end{parts}
   \begin{solution}
   \begin{parts}
-    \part $(a,b) = (1,1)$
-    \part $(a,b) = (1,1)$
-    \part $(a,b,c,d) = (1,1,1,0)$
-    \part $(a,b,c,d) = (1,1,1,0)$
-    \part $(a,b,c,d) = (1,1,1,0)$
+    \part \( (a,b) = (1,1) \)
+    \part \( (a,b) = (1,1) \)
+    \part \( (a,b,c,d) = (1,1,1,0) \)
+    \part \( (a,b,c,d) = (1,1,1,0) \)
+    \part \( (a,b,c,d) = (1,1,1,0) \)
   \end{parts}
   \end{solution}
+
 
 \question
   Explain the concept of complexity in terms of Turing machines.
@@ -273,36 +268,38 @@ public static boolean is_prime_sqrt(int n) {
     The state table gives the rules as to what to do for the current symbol being read and the current state the machine is in.
     The state table will indicate a symbol to overwrite the symbol in the current cell, the neighbouring cell to which the machine should move next, and the next state the machine should enter.
 
-    Let $n$ be the number of cells on the tape that do not initially (before the machine runs) contain the blank symbol.
+    Let \( n \) be the number of cells on the tape that do not initially (before the machine runs) contain the blank symbol.
     Call this the size of input.
-    Now consider the language that the Turing machine accepts, and call it $L$.
+    Now consider the language that the Turing machine accepts, and call it \( L \).
     This is the set of all possible inputs to the Turing machine in which it ends in the accept state.
     
-    For each element of $L$, consider the number of times we have to look up the state table before the initial input is accepted.
+    For each element of \( L \), consider the number of times we have to look up the state table before the initial input is accepted.
     Pick the worst of these, and call that the \emph{worst case}.
-    In general, $L$ is an infinite set, so we must express the worst case in terms of $n$.
-    Let $f(n)$ be the function of $n$ expressing the number of look-ups in the worst case.
-    The complexity of the Turing machine is $O(f(n))$.
+    In general, \( L \) is an infinite set, so we must express the worst case in terms of \( n \).
+    Let \( f(n) \) be the function of \( n \) expressing the number of look-ups in the worst case.
+    The complexity of the Turing machine is \( O(f(n)) \).
   \end{solution}
+
 
 \question
-  Explain why if we can solve decision problem $A$ in polynomial time, and we can convert decision problem $B$ to problem $A$ in polynomial time, then we can solve problem $B$ in polynomial time too.
+  Explain why if we can solve decision problem \( A \) in polynomial time, and we can convert decision problem \( B \) to problem \( A \) in polynomial time, then we can solve problem \( B \) in polynomial time too.
   \begin{solution}
-    Let $f(m)$ be the number of steps it takes in the worst case to solve an input of length $m$ for $A$.
-    Let $g(n)$ be the number of steps it takes in the worst case to convert an instance of $B$ to $A$.
-    Then in the worst case, an algorithm that converts $B$ to $A$ and then solves $A$ takes at most $f(m)+g(n)$ steps to complete.
-    So, the algorithm is $O(f(m)+g(n))$.
+    Let \( f(m) \) be the number of steps it takes in the worst case to solve an input of length \( m \) for \( A \).
+    Let \( g(n) \) be the number of steps it takes in the worst case to convert an instance of \( B \) to \( A \).
+    Then in the worst case, an algorithm that converts \( B \) to \( A \) and then solves \( A \) takes at most \( f(m)+g(n) \) steps to complete.
+    So, the algorithm is \( O(f(m)+g(n)) \).
 
-    Now, we know that $f$ and $g$ are polynomials, because we were told they are in the question.
-    However, $f$ is a polynomial in $m$ and $g$ in $n$.
-    Can we express $n$ in terms of a polynomial in $m$?
+    Now, we know that \( f \) and \( g \) are polynomials, because we were told they are in the question.
+    However, \( f \) is a polynomial in \( m \) and \( g \) in \( n \).
+    Can we express \( n \) in terms of a polynomial in \( m \)?
     We must be able to, because a Turing machine that works in polynomial time will always halt with a tape output that is of length a polynomial in the length of the input. 
   \end{solution}
+
 
 \question
   Explain what the P computational complexity class is, and give an example of a problem known to be in P.
   \begin{solution}
-    An algorithm is said to be solvable in \emph{polynomial time} if the number of steps required to complete the algorithm for a given input is $O(n^k)$ for some nonnegative integer $k$, where $n$ is the size of the algorithm's input.
+    An algorithm is said to be solvable in \emph{polynomial time} if the number of steps required to complete the algorithm for a given input is \( O(n^k) \) for some nonnegative integer \( k \), where \( n \) is the size of the algorithm's input.
 
     In 2002, Manindra Agrawal, Neeraj Kayal, and Nitin Saxena proved, in a paper called \emph{PRIMES is in P}, that the problem of determining whether a given natural number was a prime or not is in P.
     Their algorithm is often referred to as the AKS primality test.
@@ -312,8 +309,10 @@ public static boolean is_prime_sqrt(int n) {
 \question
   Explain what the NP computational complexity class is, and give an example of a problem known to be in NP.
 
+
 \question
   Explain what the NP-hard computational complexity class is, and give an example of a problem known to be in NP-hard.
+
 
 \question
   Explain what the NP-complete computational complexity class is, and give an example of a problem known to be in NP-complete.
@@ -322,11 +321,12 @@ public static boolean is_prime_sqrt(int n) {
 \question
   Explain how and where passwords are stored on a typical Linux system, and outline the authentication mechanism used for logins.
 
+
 \question
   Explain what the inputs and outputs of the SHA256 algorithm look like.
 
 
-  \question
+\question
   Prove that 3-SAT is NP-complete. You may assume that SAT is NP-complete.
   \begin{solution}
     The set 3-SAT is a subset of SAT, and SAT is in NP.
@@ -334,19 +334,19 @@ public static boolean is_prime_sqrt(int n) {
 
     We can convert an instance of SAT to an instance of 3-SAT in the following way.
     First convert the formula to CNF.
-    Then convert any one-literal clause $a$ of the SAT formula to the following 3-SAT formula:
-      $$(a \lor u_1 \lor u_2) \land (a \lor u_1 \lor \neg u_2) \land (a \lor \neg u_1 \lor u_2) \land (a \lor \neg u_1 \lor \neg u_2).$$
-    Convert any two-variable clause $a \lor b$ to:
-      $$(a \lor b \lor u_1) \land (a \lor b \lor \neg u_1)).$$
+    Then convert any one-literal clause \( a \) of the SAT formula to the following 3-SAT formula:
+      \[ (a \lor u_1 \lor u_2) \land (a \lor u_1 \lor \neg u_2) \land (a \lor \neg u_1 \lor u_2) \land (a \lor \neg u_1 \lor \neg u_2). \]
+    Convert any two-variable clause \( a \lor b \) to:
+      \[ (a \lor b \lor u_1) \land (a \lor b \lor \neg u_1)). \]
     Any three-variable clause can be left as-is.
-    Convert any clause with more than three variables $a \lor b \lor c \lor \ldots$ to:
-      $$(a \lor b \lor u_1) \land (c \lor \neg u_1 \lor u_2)) \land \ldots \land (i \lor \neg u_{n-4} \lor u_{n-3}) \land (j \lor k \lor \neg u_{n-3}).$$
+    Convert any clause with more than three variables \( a \lor b \lor c \lor \ldots \) to:
+      \[ (a \lor b \lor u_1) \land (c \lor \neg u_1 \lor u_2)) \land \ldots \land (i \lor \neg u_{n-4} \lor u_{n-3}) \land (j \lor k \lor \neg u_{n-3}). \]
     Now the formula is in 3-CNF.
     This reduction is polynomial in time, because the output is at most three times as long as the input.
   \end{solution}
 
 
-  \question
+\question
   Consider the following Turing Machine.
   \begin{table}[H]
     \centering
@@ -354,13 +354,13 @@ public static boolean is_prime_sqrt(int n) {
       \toprule
           State & Input & Write & Move & Next \\
       \midrule
-          $q_0$ & $\sqcup$ & $\sqcup$ & L & $q_a$ \\
-          $q_0$ & 0 & 0 & R & $q_0$ \\
-          $q_0$ & 1 & 1 & R & $q_1$ \\
+          \( q_0 \) & \( \sqcup \) & \( \sqcup \) & L & \( q_a \) \\
+          \( q_0 \) & 0 & 0 & R & \( q_0 \) \\
+          \( q_0 \) & 1 & 1 & R & \( q_1 \) \\
       \midrule
-          $q_1$ & $\sqcup$ & $\sqcup$ & L & $q_f$ \\
-          $q_1$ & 0 & 0 & R & $q_1$ \\
-          $q_1$ & 1 & 1 & R & $q_0$ \\
+          \( q_1 \) & \( \sqcup \) & \( \sqcup \) & L & \( q_f \) \\
+          \( q_1 \) & 0 & 0 & R & \( q_1 \) \\
+          \( q_1 \) & 1 & 1 & R & \( q_0 \) \\
       \bottomrule
       \hline
     \end{tabular}
@@ -373,7 +373,7 @@ public static boolean is_prime_sqrt(int n) {
     \part 0101010001
     \part 00000000000000111
     \part 00
-    \part $\epsilon$
+    \part \( \epsilon \)
   \end{parts}
   \begin{solution}
   \begin{parts}
@@ -397,13 +397,13 @@ public static boolean is_prime_sqrt(int n) {
         \toprule
             State & Input & Write & Move & Next \\
         \midrule
-            $q_0$ & $\sqcup$ & 0 & L & $q_a$ \\
-            $q_0$ & 0 & 0 & R & $q_0$ \\
-            $q_0$ & 1 & 1 & R & $q_1$ \\
+            \( q_0 \) & \( \sqcup \) & 0 & L & \( q_a \) \\
+            \( q_0 \) & 0 & 0 & R & \( q_0 \) \\
+            \( q_0 \) & 1 & 1 & R & \( q_1 \) \\
         \midrule
-            $q_1$ & $\sqcup$ & 1 & L & $q_f$ \\
-            $q_1$ & 0 & 0 & R & $q_1$ \\
-            $q_1$ & 1 & 1 & R & $q_0$ \\
+            \( q_1 \) & \( \sqcup \) & 1 & L & \( q_f \) \\
+            \( q_1 \) & 0 & 0 & R & \( q_1 \) \\
+            \( q_1 \) & 1 & 1 & R & \( q_0 \) \\
         \bottomrule
         \hline
       \end{tabular}
@@ -412,7 +412,7 @@ public static boolean is_prime_sqrt(int n) {
 
 
 \question
-  Construct a Turing Machine to compute the sequence $0 \sqcup 1 \sqcup 0 \sqcup 1 \sqcup 0 \sqcup \ldots$, that is, 0 blank 1 blank 0 blank, etc~\cite{turing37}.
+  Construct a Turing Machine to compute the sequence \( 0 \sqcup 1 \sqcup 0 \sqcup 1 \sqcup 0 \sqcup \ldots \), that is, 0 blank 1 blank 0 blank, etc~\cite{turing37}.
   \begin{solution}
     \begin{table}[H]
       \centering
@@ -420,21 +420,21 @@ public static boolean is_prime_sqrt(int n) {
         \toprule
             State & Input & Write & Move & Next \\ 
         \midrule
-            $q_0$ & $\sqcup$ & 0 & R & $q_1$ \\
-            $q_0$ & 0 & 0 & R & $q_f$ \\
-            $q_0$ & 1 & 1 & R & $q_f$ \\
+            \( q_0 \) & \( \sqcup \) & 0 & R & \( q_1 \) \\
+            \( q_0 \) & 0 & 0 & R & \( q_f \) \\
+            \( q_0 \) & 1 & 1 & R & \( q_f \) \\
         \midrule
-            $q_1$ & $\sqcup$ & $\sqcup$ & R & $q_2$ \\
-            $q_1$ & 0 & 0 & R & $q_f$ \\
-            $q_1$ & 1 & 1 & R & $q_f$ \\
+            \( q_1 \) & \( \sqcup \) & \( \sqcup \) & R & \( q_2 \) \\
+            \( q_1 \) & 0 & 0 & R & \( q_f \) \\
+            \( q_1 \) & 1 & 1 & R & \( q_f \) \\
         \midrule
-            $q_2$ & $\sqcup$ & 1 & R & $q_3$ \\
-            $q_2$ & 0 & 0 & R & $q_f$ \\
-            $q_2$ & 1 & 1 & R & $q_f$ \\
+            \( q_2 \) & \( \sqcup \) & 1 & R & \( q_3 \) \\
+            \( q_2 \) & 0 & 0 & R & \( q_f \) \\
+            \( q_2 \) & 1 & 1 & R & \( q_f \) \\
         \midrule
-            $q_3$ & $\sqcup$ & $\sqcup$ & R & $q_0$ \\
-            $q_3$ & 0 & 0 & R & $q_f$ \\
-            $q_3$ & 1 & 1 & R & $q_f$ \\
+            \( q_3 \) & \( \sqcup \) & \( \sqcup \) & R & \( q_0 \) \\
+            \( q_3 \) & 0 & 0 & R & \( q_f \) \\
+            \( q_3 \) & 1 & 1 & R & \( q_f \) \\
         \bottomrule
         \hline
       \end{tabular}
@@ -445,8 +445,8 @@ public static boolean is_prime_sqrt(int n) {
 \question
   Give the state table for a Turing Machine that multiplies a string of consecutive 0's and 1's by 2.
   The machine should treat the initial contents of the tape as a natural number written in binary form, with the least significant bit at the end.
-  That is, if the contents of the tape are $01101$, then the right-most 1 represents the number 1, the middle 1 represents the number 4 and the left-most 1 represents the number 8.
-  Then the number on the tape is $8+4+1=13$.
+  That is, if the contents of the tape are \( 01101 \), then the right-most 1 represents the number 1, the middle 1 represents the number 4 and the left-most 1 represents the number 8.
+  Then the number on the tape is \( 8+4+1=13 \).
   \begin{solution}
     \begin{table}[H]
       \centering
@@ -454,9 +454,9 @@ public static boolean is_prime_sqrt(int n) {
         \toprule
             State & Input & Write & Move & Next \\
         \midrule
-            $q_0$ & $\sqcup$ & 0 & R & $q_a$ \\
-            $q_0$ & 0 & 0 & R & $q_0$ \\
-            $q_0$ & 1 & 1 & R & $q_0$ \\
+            \( q_0 \) & \( \sqcup \) & 0 & R & \( q_a \) \\
+            \( q_0 \) & 0 & 0 & R & \( q_0 \) \\
+            \( q_0 \) & 1 & 1 & R & \( q_0 \) \\
         \bottomrule
         \hline
       \end{tabular}
@@ -467,8 +467,8 @@ public static boolean is_prime_sqrt(int n) {
 \question
   Give the state table for a Turing Machine that multiplies a string of consecutive 0's and 1's by 2.
   The machine should treat the initial contents of the tape as a natural number written in binary form, with the most significant bit at the end.
-  That is, if the contents of the tape are $01101$, then the right-most 1 represents the number 16, the middle 1 represents the number 4 and the left-most 1 represents the number 2.
-  Then the number of the tape is $2+4+16=22$.
+  That is, if the contents of the tape are \( 01101 \), then the right-most 1 represents the number 16, the middle 1 represents the number 4 and the left-most 1 represents the number 2.
+  Then the number of the tape is \( 2+4+16=22 \).
   \begin{solution}
     \begin{table}[H]
       \centering
@@ -476,25 +476,25 @@ public static boolean is_prime_sqrt(int n) {
         \toprule
             State & Input & Write & Move & Next \\
         \midrule
-            $q_0$ & $\sqcup$ & $\sqcup$ & L & $q_1$ \\
-            $q_0$ & 0 & 0 & R & $q_0$ \\
-            $q_0$ & 1 & 1 & R & $q_0$ \\
+            \( q_0 \) & \( \sqcup \) & \( \sqcup \) & L & \( q_1 \) \\
+            \( q_0 \) & 0 & 0 & R & \( q_0 \) \\
+            \( q_0 \) & 1 & 1 & R & \( q_0 \) \\
         \midrule
-            $q_1$ & $\sqcup$ & $\sqcup$ & R & $q_4$ \\
-            $q_1$ & 0 & $\sqcup$ & R & $q_2$ \\
-            $q_1$ & 1 & $\sqcup$ & R & $q_3$ \\
+            \( q_1 \) & \( \sqcup \) & \( \sqcup \) & R & \( q_4 \) \\
+            \( q_1 \) & 0 & \( \sqcup \) & R & \( q_2 \) \\
+            \( q_1 \) & 1 & \( \sqcup \) & R & \( q_3 \) \\
         \midrule
-            $q_2$ & $\sqcup$ & 0 & L & $q_0$ \\
-            $q_2$ & 0 & 0 & R & $q_f$ \\
-            $q_2$ & 1 & 1 & R & $q_f$ \\
+            \( q_2 \) & \( \sqcup \) & 0 & L & \( q_0 \) \\
+            \( q_2 \) & 0 & 0 & R & \( q_f \) \\
+            \( q_2 \) & 1 & 1 & R & \( q_f \) \\
         \midrule
-            $q_3$ & $\sqcup$ & 1 & L & $q_0$ \\
-            $q_3$ & 0 & 0 & R & $q_f$ \\
-            $q_3$ & 1 & 1 & R & $q_f$ \\
+            \( q_3 \) & \( \sqcup \) & 1 & L & \( q_0 \) \\
+            \( q_3 \) & 0 & 0 & R & \( q_f \) \\
+            \( q_3 \) & 1 & 1 & R & \( q_f \) \\
         \midrule
-            $q_4$ & $\sqcup$ & 0 & R & $q_a$ \\
-            $q_4$ & 0 & 0 & R & $q_f$ \\
-            $q_4$ & 1 & 1 & R & $q_f$ \\
+            \( q_4 \) & \( \sqcup \) & 0 & R & \( q_a \) \\
+            \( q_4 \) & 0 & 0 & R & \( q_f \) \\
+            \( q_4 \) & 1 & 1 & R & \( q_f \) \\
         \bottomrule
         \hline
       \end{tabular}
@@ -511,13 +511,13 @@ public static boolean is_prime_sqrt(int n) {
         \toprule
             State & Input & Write & Move & Next \\
         \midrule
-            $q_0$ & $\sqcup$ & $\sqcup$ & L & $q_1$ \\
-            $q_0$ & 0        & 0        & R & $q_0$ \\
-            $q_0$ & 1        & 1        & R & $q_0$ \\
+            \( q_0 \) & \( \sqcup \) & \( \sqcup \) & L & \( q_1 \) \\
+            \( q_0 \) & 0        & 0        & R & \( q_0 \) \\
+            \( q_0 \) & 1        & 1        & R & \( q_0 \) \\
         \midrule
-            $q_1$ & $\sqcup$ & 1        & L & $q_a$ \\
-            $q_1$ & 0        & 1        & L & $q_a$ \\
-            $q_1$ & 1        & 0        & L & $q_1$ \\
+            \( q_1 \) & \( \sqcup \) & 1        & L & \( q_a \) \\
+            \( q_1 \) & 0        & 1        & L & \( q_a \) \\
+            \( q_1 \) & 1        & 0        & L & \( q_1 \) \\
         \bottomrule
         \hline
       \end{tabular}
@@ -534,13 +534,13 @@ public static boolean is_prime_sqrt(int n) {
         \toprule
             State & Input & Write & Move & Next \\
         \midrule
-            $q_0$ & $\sqcup$ & $\sqcup$ & L & $q_1$ \\
-            $q_0$ & 0        & 0        & R & $q_0$ \\
-            $q_0$ & 1        & 1        & R & $q_0$ \\
+            \( q_0 \) & \( \sqcup \) & \( \sqcup \) & L & \( q_1 \) \\
+            \( q_0 \) & 0        & 0        & R & \( q_0 \) \\
+            \( q_0 \) & 1        & 1        & R & \( q_0 \) \\
         \midrule
-            $q_1$ & $\sqcup$ & $\sqcup$ & L & $q_a$ \\
-            $q_1$ & 0        & 1        & L & $q_1$ \\
-            $q_1$ & 1        & 0        & L & $q_a$ \\
+            \( q_1 \) & \( \sqcup \) & \( \sqcup \) & L & \( q_a \) \\
+            \( q_1 \) & 0        & 1        & L & \( q_1 \) \\
+            \( q_1 \) & 1        & 0        & L & \( q_a \) \\
         \bottomrule
         \hline
       \end{tabular}
@@ -549,22 +549,22 @@ public static boolean is_prime_sqrt(int n) {
 
 
 \question
-  List all words of length at most three in $\Sigma^*$ where $\Sigma$ is:
+  List all words of length at most three in \( \Sigma^* \) where \( \Sigma \) is:
   \begin{parts}
-    \part $\{ 0, 1 \}$
-    \part $\{ a, b, c \}$
-    \part $\{ \}$
+    \part \( \{ 0, 1 \} \)
+    \part \( \{ a, b, c \} \)
+    \part \( \{ \} \)
   \end{parts}
   \begin{solution}
     \begin{parts}
-      \part $\{ \epsilon, 0, 1, 00, 01, 10, 11, 000, 001, 010, 011, 100, 101, 110, 111 \}$
-      \part $\{ \epsilon, a, b, c, aa, ab, ac, ba, bb, bc, ca, cb, cc, abc, acb, bac, bca, cab, cba \}$
-      \part $\{ \epsilon \}$
+      \part \( \{ \epsilon, 0, 1, 00, 01, 10, 11, 000, 001, 010, 011, 100, 101, 110, 111 \} \)
+      \part \( \{ \epsilon, a, b, c, aa, ab, ac, ba, bb, bc, ca, cb, cc, abc, acb, bac, bca, cab, cba \} \)
+      \part \( \{ \epsilon \} \)
     \end{parts}
   \end{solution}
 
 \question
-  Design a Turing machine to recognise the language $\{ 0^n 1^n \mid n \geq 0 \}$.
+  Design a Turing machine to recognise the language \( \{ 0^n 1^n \mid n \geq 0 \} \).
   \begin{solution}
     \begin{table}[H]
       \centering
@@ -572,21 +572,21 @@ public static boolean is_prime_sqrt(int n) {
         \toprule
             State & Input & Write & Move & Next \\
         \midrule
-            $q_0$ & $\sqcup$ & $\sqcup$ & R & $q_a$ \\
-            $q_0$ & 0        & $\sqcup$ & R & $q_1$ \\
-            $q_0$ & 1        & 1        & R & $q_f$ \\
+            \( q_0 \) & \( \sqcup \) & \( \sqcup \) & R & \( q_a \) \\
+            \( q_0 \) & 0        & \( \sqcup \) & R & \( q_1 \) \\
+            \( q_0 \) & 1        & 1        & R & \( q_f \) \\
         \midrule
-            $q_1$ & $\sqcup$ & $\sqcup$ & L & $q_2$ \\
-            $q_1$ & 0        & 0        & R & $q_1$ \\
-            $q_1$ & 1        & 1        & R & $q_1$ \\
+            \( q_1 \) & \( \sqcup \) & \( \sqcup \) & L & \( q_2 \) \\
+            \( q_1 \) & 0        & 0        & R & \( q_1 \) \\
+            \( q_1 \) & 1        & 1        & R & \( q_1 \) \\
         \midrule
-            $q_2$ & $\sqcup$ & $\sqcup$ & L & $q_f$ \\
-            $q_2$ & 0        & 0        & R & $q_f$ \\
-            $q_2$ & 1        & $\sqcup$ & L & $q_3$ \\
+            \( q_2 \) & \( \sqcup \) & \( \sqcup \) & L & \( q_f \) \\
+            \( q_2 \) & 0        & 0        & R & \( q_f \) \\
+            \( q_2 \) & 1        & \( \sqcup \) & L & \( q_3 \) \\
         \midrule
-            $q_3$ & $\sqcup$ & $\sqcup$ & R & $q_0$ \\
-            $q_3$ & 0        & 0        & L & $q_3$ \\
-            $q_3$ & 1        & 1        & L & $q_3$ \\
+            \( q_3 \) & \( \sqcup \) & \( \sqcup \) & R & \( q_0 \) \\
+            \( q_3 \) & 0        & 0        & L & \( q_3 \) \\
+            \( q_3 \) & 1        & 1        & L & \( q_3 \) \\
         \bottomrule
         \hline
       \end{tabular}
@@ -595,8 +595,8 @@ public static boolean is_prime_sqrt(int n) {
 
 
 \question
-  Design a Turing machine to recognise the language $\{ ww^R \mid w \in \{ 0,1 \}^* \}$ where $w^R$ is $w$ reversed.
-  For example, when $w = 101011$ then $w^R = 110101$.
+  Design a Turing machine to recognise the language \( \{ ww^R \mid w \in \{ 0,1 \}^* \} \) where \( w^R \) is \( w \) reversed.
+  For example, when \( w = 101011 \) then \( w^R = 110101 \).
   \begin{solution}
     \begin{table}[H]
       \centering
@@ -604,29 +604,29 @@ public static boolean is_prime_sqrt(int n) {
         \toprule
             State & Input & Write & Move & Next \\
         \midrule
-            $q_0$ & $\sqcup$ & $\sqcup$ & R & $q_a$ \\
-            $q_0$ & 0        & $\sqcup$ & R & $q_1$ \\
-            $q_0$ & 1        & $\sqcup$ & R & $q_3$ \\
+            \( q_0 \) & \( \sqcup \) & \( \sqcup \) & R & \( q_a \) \\
+            \( q_0 \) & 0        & \( \sqcup \) & R & \( q_1 \) \\
+            \( q_0 \) & 1        & \( \sqcup \) & R & \( q_3 \) \\
         \midrule
-            $q_1$ & $\sqcup$ & $\sqcup$ & L & $q_2$ \\
-            $q_1$ & 0        & 0        & R & $q_1$ \\
-            $q_1$ & 1        & 1        & R & $q_1$ \\
+            \( q_1 \) & \( \sqcup \) & \( \sqcup \) & L & \( q_2 \) \\
+            \( q_1 \) & 0        & 0        & R & \( q_1 \) \\
+            \( q_1 \) & 1        & 1        & R & \( q_1 \) \\
         \midrule
-            $q_2$ & $\sqcup$ & $\sqcup$ & L & $q_f$ \\
-            $q_2$ & 0        & $\sqcup$ & L & $q_5$ \\
-            $q_2$ & 1        & 1        & L & $q_f$ \\
+            \( q_2 \) & \( \sqcup \) & \( \sqcup \) & L & \( q_f \) \\
+            \( q_2 \) & 0        & \( \sqcup \) & L & \( q_5 \) \\
+            \( q_2 \) & 1        & 1        & L & \( q_f \) \\
         \midrule
-            $q_3$ & $\sqcup$ & $\sqcup$ & L & $q_4$ \\
-            $q_3$ & 0        & 0        & R & $q_3$ \\
-            $q_3$ & 1        & 1        & R & $q_3$ \\
+            \( q_3 \) & \( \sqcup \) & \( \sqcup \) & L & \( q_4 \) \\
+            \( q_3 \) & 0        & 0        & R & \( q_3 \) \\
+            \( q_3 \) & 1        & 1        & R & \( q_3 \) \\
         \midrule
-            $q_4$ & $\sqcup$ & $\sqcup$ & L & $q_f$ \\
-            $q_4$ & 0        & 0        & L & $q_f$ \\
-            $q_4$ & 1        & $\sqcup$ & L & $q_5$ \\
+            \( q_4 \) & \( \sqcup \) & \( \sqcup \) & L & \( q_f \) \\
+            \( q_4 \) & 0        & 0        & L & \( q_f \) \\
+            \( q_4 \) & 1        & \( \sqcup \) & L & \( q_5 \) \\
         \midrule
-            $q_5$ & $\sqcup$ & $\sqcup$ & R & $q_0$ \\
-            $q_5$ & 0        & 0        & L & $q_5$ \\
-            $q_5$ & 1        & 1        & L & $q_5$ \\
+            \( q_5 \) & \( \sqcup \) & \( \sqcup \) & R & \( q_0 \) \\
+            \( q_5 \) & 0        & 0        & L & \( q_5 \) \\
+            \( q_5 \) & 1        & 1        & L & \( q_5 \) \\
         \bottomrule
         \hline
       \end{tabular}
@@ -635,7 +635,7 @@ public static boolean is_prime_sqrt(int n) {
 
 
 \question
-  Design a Turing machine to recognise the language $\{ a^ib^jc^k \mid i,j,k \in \mathbb{N}_0 \}$
+  Design a Turing machine to recognise the language \( \{ a^ib^jc^k \mid i,j,k \in \mathbb{N}_0 \} \)
   \begin{solution}
     \begin{table}[H]
       \centering
@@ -643,20 +643,20 @@ public static boolean is_prime_sqrt(int n) {
         \toprule
             State & Input & Write & Move & Next \\
         \midrule
-            $q_0$ & $\sqcup$ & $\sqcup$ & R & $q_a$ \\
-            $q_0$ & $a$      & $a$      & R & $q_0$ \\
-            $q_0$ & $b$      & $b$      & R & $q_1$ \\
-            $q_0$ & $c$      & $c$      & R & $q_2$ \\
+            \( q_0 \) & \( \sqcup \) & \( \sqcup \) & R & \( q_a \) \\
+            \( q_0 \) & \( a \)      & \( a \)      & R & \( q_0 \) \\
+            \( q_0 \) & \( b \)      & \( b \)      & R & \( q_1 \) \\
+            \( q_0 \) & \( c \)      & \( c \)      & R & \( q_2 \) \\
         \midrule
-            $q_0$ & $\sqcup$ & $\sqcup$ & R & $q_a$ \\
-            $q_0$ & $a$      & $a$      & R & $q_f$ \\
-            $q_0$ & $b$      & $b$      & R & $q_1$ \\
-            $q_0$ & $c$      & $c$      & R & $q_2$ \\
+            \( q_0 \) & \( \sqcup \) & \( \sqcup \) & R & \( q_a \) \\
+            \( q_0 \) & \( a \)      & \( a \)      & R & \( q_f \) \\
+            \( q_0 \) & \( b \)      & \( b \)      & R & \( q_1 \) \\
+            \( q_0 \) & \( c \)      & \( c \)      & R & \( q_2 \) \\
         \midrule
-            $q_0$ & $\sqcup$ & $\sqcup$ & R & $q_a$ \\
-            $q_0$ & $a$      & $a$      & R & $q_f$ \\
-            $q_0$ & $b$      & $b$      & R & $q_f$ \\
-            $q_0$ & $c$      & $c$      & R & $q_2$ \\
+            \( q_0 \) & \( \sqcup \) & \( \sqcup \) & R & \( q_a \) \\
+            \( q_0 \) & \( a \)      & \( a \)      & R & \( q_f \) \\
+            \( q_0 \) & \( b \)      & \( b \)      & R & \( q_f \) \\
+            \( q_0 \) & \( c \)      & \( c \)      & R & \( q_2 \) \\
         \bottomrule
         \hline
       \end{tabular}
@@ -666,6 +666,8 @@ public static boolean is_prime_sqrt(int n) {
 
 \end{questions} 
 
+% Insert the references.
 \bibliographystyle{plain}
 \bibliography{bibliography}
+
 \end{document}
