@@ -86,25 +86,25 @@
 \end{coverpages}
 
 % Print answers
-\printanswers
+% \printanswers
 
 \begin{document}
 
 \noindent
-The main reference for these problems is Sipser~\cite{sipserbook}.
+The main reference for this problem set is Michael Sipser's Theory of Computation~\cite{sipserbook}.
+However, the first problem comes from Douglas Hofstadter's book \emph{Gödel, Escher, Bach}~\cite{hofstadter79}.
 
 \begin{questions}
 
 
 \question
-  The following problem comes from Douglas Hofstadter's book \emph{Gödel, Escher, Bach}~\cite{hofstadter79}.
   Take the time to try to solve this problem yourself.
   The problem concerns strings of characters.
   The only characters allowed/available are M, U and I.
 
   You start with the string MI and the goal is to use the four rules below to convert it into the string MU.
   In the rules, the letter x denotes any string.
-  You can use the rules any number of times and in any order, just so long as you get to MU~\cite{muwikipedia}.
+  You can use the rules any number of times and in any order, just so long as you get to MU.
 
   \begin{center}
   \begin{tabular}{rlll}
@@ -118,6 +118,8 @@ The main reference for these problems is Sipser~\cite{sipserbook}.
   \bottomrule
   \end{tabular}
   \end{center}
+
+
 
 \question
   Explain of the following terms in the context of complexity theory.
@@ -180,6 +182,8 @@ public static boolean is_prime_sqrt(int n) {
     \end{minted}
   \end{solution}
 
+\newpage
+
 
 \question
   Determine which of the following are in PRIMES (without Google).
@@ -240,6 +244,25 @@ public static boolean is_prime_sqrt(int n) {
     It outputs 1 if that number is a prime and 0 otherwise.
   \end{solution}
 
+
+  \question
+  Determinethe following expressions are in SAT and 3SAT.
+  \begin{parts}
+    \part $a \vee b$
+    \part $a \wedge b$
+    \part $((a \wedge b) \vee ( \neg b \wedge c)) \vee  \neg d$
+    \part $(a  \wedge   b) \vee (c  \wedge  d)$
+    \part $(a \vee b)  \wedge  (c \vee d)$
+  \end{parts}
+  \begin{solution}
+  \begin{parts}
+    \part $(a,b) = (1,1)$
+    \part $(a,b) = (1,1)$
+    \part $(a,b,c,d) = (1,1,1,0)$
+    \part $(a,b,c,d) = (1,1,1,0)$
+    \part $(a,b,c,d) = (1,1,1,0)$
+  \end{parts}
+  \end{solution}
 
 \question
   Explain the concept of complexity in terms of Turing machines.
@@ -303,26 +326,6 @@ public static boolean is_prime_sqrt(int n) {
   Explain what the inputs and outputs of the SHA256 algorithm look like.
 
 
-\question
-  Determinethe following expressions are in SAT and 3SAT.
-  \begin{parts}
-    \part $a \vee b$
-    \part $a \wedge b$
-    \part $((a \wedge b) \vee ( \neg b \wedge c)) \vee  \neg d$
-    \part $(a  \wedge   b) \vee (c  \wedge  d)$
-    \part $(a \vee b)  \wedge  (c \vee d)$
-  \end{parts}
-  \begin{solution}
-  \begin{parts}
-    \part $(a,b) = (1,1)$
-    \part $(a,b) = (1,1)$
-    \part $(a,b,c,d) = (1,1,1,0)$
-    \part $(a,b,c,d) = (1,1,1,0)$
-    \part $(a,b,c,d) = (1,1,1,0)$
-  \end{parts}
-  \end{solution}
-
-
   \question
   Prove that 3-SAT is NP-complete. You may assume that SAT is NP-complete.
   \begin{solution}
@@ -370,7 +373,7 @@ public static boolean is_prime_sqrt(int n) {
     \part 0101010001
     \part 00000000000000111
     \part 00
-    \part 
+    \part $\epsilon$
   \end{parts}
   \begin{solution}
   \begin{parts}
@@ -415,7 +418,7 @@ public static boolean is_prime_sqrt(int n) {
       \centering
       \begin{tabular}{ccccc}
         \toprule
-            State & Input & Write & Move & Next \\
+            State & Input & Write & Move & Next \\ 
         \midrule
             $q_0$ & $\sqcup$ & 0 & R & $q_1$ \\
             $q_0$ & 0 & 0 & R & $q_f$ \\
